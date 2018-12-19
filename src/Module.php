@@ -1,11 +1,10 @@
 <?php
-namespace RS\Module\TradeModule;
+namespace SK\Module\TradeModule;
 
 use Yii;
 use yii\base\Module as BaseModule;
 use yii\i18n\PhpMessageSource;
 use yii\console\Application as ConsoleApplication;
-use yii\web\Application as WebApplication;
 
 /**
  * This is the main module class of the trade extension.
@@ -15,7 +14,7 @@ class Module extends BaseModule
     /**
      * @var string Module cotrollers namespace.
      */
-    public $controllerNamespace = 'RS\Module\TradeModule\Controller';
+    public $controllerNamespace = 'SK\Module\TradeModule\Controller';
 
     /**
      * @var string Default route.
@@ -41,7 +40,7 @@ class Module extends BaseModule
         parent::init();
 
         if (Yii::$app instanceof ConsoleApplication) {
-            $this->controllerNamespace = 'RS\Module\TradeModule\Command';
+            $this->controllerNamespace = 'SK\Module\TradeModule\Command';
             $this->defaultRoute = 'run/index';
         }
 

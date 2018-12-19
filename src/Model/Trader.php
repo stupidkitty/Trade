@@ -1,5 +1,5 @@
 <?php
-namespace RS\Module\TradeModule\Model;
+namespace SK\Module\TradeModule\Model;
 
 use yii\db\ActiveRecord;
 

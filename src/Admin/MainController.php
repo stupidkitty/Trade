@@ -1,5 +1,5 @@
 <?php
-namespace RS\Module\TradeModule\Admin;
+namespace SK\Module\TradeModule\Admin;
 
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
