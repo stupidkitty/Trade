@@ -6,7 +6,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "traders".
  *
- * @property integer $trade_id
+ * @property integer $trader_id
  * @property string $name
  * @property string $trade_url
  * @property integer $skim
@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $updated_at
  * @property string $created_at
  */
-class Trade extends ActiveRecord
+class Trader extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class Trade extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->trader_id;
     }
