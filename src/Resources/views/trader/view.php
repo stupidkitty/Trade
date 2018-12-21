@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = Yii::t('trade', 'info');
                 'trader_id',
                 'name',
                 'trade_url:url',
-                'skim',
                 'forces_tally',
                 'enabled',
                 'updated_at:datetime',

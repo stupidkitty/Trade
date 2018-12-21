@@ -48,7 +48,6 @@ if ($page <= 1) {
                 'trader_id',
                 'name',
                 'trade_url',
-                'skim',
                 'forces_tally',
                 'enabled',
                 [

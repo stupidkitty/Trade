@@ -8,7 +8,6 @@ class TraderForm extends Model
 {
 	public $name;
 	public $trade_url;
-	public $skim;
     public $forces_tally;
     public $enabled;
 
@@ -38,7 +37,7 @@ class TraderForm extends Model
         return [
             [['name', 'trade_url'], 'required'],
             [['name', 'trade_url'], 'string'],
-            [['skim', 'forces_tally'], 'integer'],
+            [['forces_tally'], 'integer'],
             [['enabled'], 'boolean'],
         ];
     }

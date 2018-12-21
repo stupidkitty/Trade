@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
 <?= $activeForm->field($form, 'trade_url')->textInput() ?>
 
-<?= $activeForm->field($form, 'skim')->textInput() ?>
-
 <?= $activeForm->field($form, 'forces_tally')->textInput() ?>
 
 <?= $activeForm->field($form, 'enabled')->checkbox() ?>

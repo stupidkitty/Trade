@@ -9,7 +9,6 @@ use yii\db\ActiveRecord;
  * @property integer $trader_id
  * @property string $name
  * @property string $trade_url
- * @property integer $skim
  * @property integer $forces_tally
  * @property boolean $enabled
  * @property string $updated_at
@@ -32,7 +31,7 @@ class Trader extends ActiveRecord
     {
         return [
             [['name', 'trade_url'], 'string'],
-            [['skim', 'forces_tally'], 'integer'],
+            [['forces_tally'], 'integer'],
             [['enabled'], 'boolean'],
             [['updated_at', 'created_at'], 'safe'],
         ];
