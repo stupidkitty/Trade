@@ -39,6 +39,9 @@ class TraderForm extends Model
             [['name', 'trade_url'], 'string'],
             [['forces_tally'], 'integer'],
             [['enabled'], 'boolean'],
+
+            // defaults
+            [['forces_tally'], 'default', 'value' => 0],
         ];
     }
 
