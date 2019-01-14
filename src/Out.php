@@ -12,9 +12,9 @@ class Out
 
     private $db;
 
-    public function __construct()
+    public function __construct(\PDO $connection)
     {
-        $this->db = new \PDO('mysql:dbname=rs_lc;host=127.0.0.1', 'test', 'testtest');
+        $this->db = $connection;
     }
 
     public function run()
@@ -22,7 +22,7 @@ class Out
         $getVars = $this->parseUri();
 
         // Если выпало на контент и урл для контента задан редиректим на контент.
-        if ($this->isSkim(0) && !empty($getVars['url'])) {
+        if ($this->isSkim(30) && !empty($getVars['url'])) {
             $this->redirect($getVars['url']);
         }
 
@@ -30,6 +30,7 @@ class Out
 
         $tradeUrl = '';
         $redirectUrl = '';
+        
         if (empty($getVars['url']) && null === $trader) {
             // если оба пустые, отправляем на слив куда-то.
             $this->redirect($defaultUrl);
