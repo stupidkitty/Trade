@@ -2,9 +2,10 @@
 namespace SK\Module\TradeModule\Controller;
 
 use Yii;
-use yii\base\ViewContextInterface;
+use yii\web\Request;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use SK\Module\TradeModule\Helper\LinkHelper;
 use RS\Component\Core\Settings\SettingsInterface;
 
 /**
@@ -30,6 +31,68 @@ class OutController extends Controller
      */
     public function actionSend()
     {
+        $request = Yii::$container->get(Request::class);
+        $settings = Yii::$container->get(SettingsInterface::class);
+        $getVars = LinkHelper::parseUri();
+
+        if (isset($getVars['skim'])) {
+            $skim = (int) $getVars['skim'];
+        } else {
+            $skim = (int) $settings->get('skim', 90, 'trade');
+        }
+
+        // Если выпало на контент и урл для контента задан редиректим на контент.
+        if ($this->isSkim($skim) && !empty($getVars['url'])) {
+            return $this->redirect($getVars['url']);
+        }
+dump($skim, $getVars);exit;
+        $trader = $this->getTrader();
+
+        $tradeUrl = '';
+        $redirectUrl = '';
+        
+        if (empty($getVars['url']) && null === $trader) {
+            // если оба пустые, отправляем на слив куда-то.
+            $this->redirect($defaultUrl);
+        } elseif (null === $trader) {
+            // если нету трейда, отправляем на контент.
+            $this->redirect($getVars['url']);
+        }
+
+        // дальше обрабатываем трейд.
+        if ($trader['forces_tally'] > 0) {
+            $this->decreaseTraderForcesTally($trader['trader_id']);
+        }
+
+        $this->sentTo($trader['trader_id']);
+
+        $this->redirect($trader['trader_url']);
+        
         return $this->render('send');
+    }
+
+    /**
+     * Вычисляет шанс показа контента (skim)
+     *
+     * @param integer $skim
+     * @return boolean
+     */
+    private function isSkim($skim = 100)
+    {
+        $skim = (int) $skim;
+
+        if (100 === $skim) {
+            return true;
+        }
+
+        $randValue = \rand(0, 10000); // random_int mt_rand rand
+
+        $randValue = (int) \ceil($randValue / 100);
+
+        if ($randValue <= $skim) {
+            return true;
+        }
+
+        return false;
     }
 }

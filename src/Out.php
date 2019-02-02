@@ -63,7 +63,7 @@ class Out
             return true;
         }
 
-        $randValue = \random_int(0, 10000); // random_int mt_rand rand
+        $randValue = \rand(0, 10000); // random_int mt_rand rand
 
         $randValue = (int) \ceil($randValue / 100);
 
