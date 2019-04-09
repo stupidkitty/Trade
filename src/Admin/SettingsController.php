@@ -1,11 +1,11 @@
 <?php
-namespace SK\Module\TradeModule\Admin;
+namespace SK\TradeModule\Admin;
 
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use RS\Component\Core\Settings\SettingsInterface;
-use SK\Module\TradeModule\Form\SettingsForm;
+use SK\TradeModule\Form\SettingsForm;
 
 /**
  * SettingsController

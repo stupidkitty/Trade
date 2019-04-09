@@ -1,11 +1,11 @@
 <?php
-namespace SK\Module\TradeModule\Controller;
+namespace SK\TradeModule\Controller;
 
 use Yii;
 use yii\web\Request;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use SK\Module\TradeModule\Helper\LinkHelper;
+use SK\TradeModule\Helper\TradeUrl;
 use RS\Component\Core\Settings\SettingsInterface;
 
 /**
@@ -33,7 +33,7 @@ class OutController extends Controller
     {
         $request = Yii::$container->get(Request::class);
         $settings = Yii::$container->get(SettingsInterface::class);
-        $getVars = LinkHelper::parseUri();
+        $getVars = TradeUrl::parseRequest();
 
         if (isset($getVars['skim'])) {
             $skim = (int) $getVars['skim'];

@@ -1,5 +1,5 @@
 <?php
-namespace SK\Module\TradeModule\Admin;
+namespace SK\TradeModule\Admin;
 
 use yii\web\Controller;
 use yii\filters\VerbFilter;

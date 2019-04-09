@@ -1,9 +1,9 @@
 <?php
-namespace SK\Module\TradeModule\Command;
+namespace SK\TradeModule\Command;
 
 use Yii;
 use yii\console\Controller;
-use SK\Module\TradeModule\Out;
+use SK\TradeModule\Out;
 
 
 class TestController extends Controller

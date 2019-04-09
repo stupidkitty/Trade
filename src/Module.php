@@ -1,5 +1,5 @@
 <?php
-namespace SK\Module\TradeModule;
+namespace SK\TradeModule;
 
 use Yii;
 use yii\base\Module as BaseModule;
@@ -14,7 +14,7 @@ class Module extends BaseModule
     /**
      * @var string Module cotrollers namespace.
      */
-    public $controllerNamespace = 'SK\Module\TradeModule\Controller';
+    public $controllerNamespace = 'SK\TradeModule\Controller';
 
     /**
      * @var string Default route.
@@ -40,7 +40,7 @@ class Module extends BaseModule
         parent::init();
 
         if (Yii::$app instanceof ConsoleApplication) {
-            $this->controllerNamespace = 'SK\Module\TradeModule\Command';
+            $this->controllerNamespace = 'SK\TradeModule\Command';
             $this->defaultRoute = 'run/index';
         }
 

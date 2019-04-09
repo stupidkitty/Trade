@@ -1,5 +1,5 @@
 <?php
-namespace SK\Module\TradeModule;
+namespace SK\TradeModule;
 
 /**
  * Cj out class

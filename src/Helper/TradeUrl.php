@@ -1,15 +1,16 @@
 <?php
-namespace SK\Module\TradeModule\Helper;
+namespace SK\TradeModule\Helper;
 
-class LinkHelper
+class TradeUrl
 {
-    public static function create($url, array $options = [])
+    public static function createUrl($url, array $options = [])
     {
         
     }
 
-    public static function parseUri()
+    public static function parseRequest()
     {
+        $request = Yii::$app->getRequest();
         $queryParams = [];
         if (!empty($_SERVER['QUERY_STRING'])) {
             \parse_str($_SERVER['QUERY_STRING'], $queryParams);

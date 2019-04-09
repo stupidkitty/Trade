@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SK\\Module\\TradeModule\\": "./src"
+            "SK\\TradeModule\\": "./src"
         }
     }
 }

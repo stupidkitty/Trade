@@ -1,5 +1,5 @@
 <?php
-namespace SK\Module\TradeModule\Form;
+namespace SK\TradeModule\Form;
 
 use yii\base\Model;
 

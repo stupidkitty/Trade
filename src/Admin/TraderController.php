@@ -1,5 +1,5 @@
 <?php
-namespace SK\Module\TradeModule\Admin;
+namespace SK\TradeModule\Admin;
 
 use Yii;
 use yii\web\Controller;
@@ -7,8 +7,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use SK\Module\TradeModule\Model\Trader;
-use SK\Module\TradeModule\Form\TraderForm;
+use SK\TradeModule\Model\Trader;
+use SK\TradeModule\Form\TraderForm;
 
 /**
  * TraderController implements the CRUD actions for Trader model.
