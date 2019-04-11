@@ -33,7 +33,7 @@ class OutController extends Controller
     {
         $request = Yii::$container->get(Request::class);
         $settings = Yii::$container->get(SettingsInterface::class);
-        $getVars = TradeUrl::parseRequest();
+        $getVars = TradeUrl::getRequestVars();
 
         if (isset($getVars['skim'])) {
             $skim = (int) $getVars['skim'];
@@ -45,7 +45,7 @@ class OutController extends Controller
         if ($this->isSkim($skim) && !empty($getVars['url'])) {
             return $this->redirect($getVars['url']);
         }
-dump($skim, $getVars);exit;
+
         $trader = $this->getTrader();
 
         $tradeUrl = '';
