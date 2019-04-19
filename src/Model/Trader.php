@@ -44,4 +44,24 @@ class Trader extends ActiveRecord
     {
         return $this->trader_id;
     }
+
+    public function decreaseForcesTally()
+    {
+        if ($this->forces_tally <= 0) {
+            return;
+        }
+
+        $sql = "
+            UPDATE `traders`
+               SET `forces_tally` = IF(`forces_tally` > 0, `forces_tally` - 1, 0)
+             WHERE `trader_id` = :trader_id
+        ";
+
+        $command = static::getDb()->createCommand($sql);
+        $command->bindParam(':trader_id', $this->getId());
+
+        if ($this->execute()) {
+            $this->forces_tally -= 1;
+        }
+    }
 }
