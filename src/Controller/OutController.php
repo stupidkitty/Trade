@@ -3,9 +3,11 @@ namespace SK\TradeModule\Controller;
 
 use Yii;
 use yii\web\Request;
+use yii\db\Expression;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use SK\TradeModule\Model\Trader;
 use SK\TradeModule\Helper\TradeUrl;
+use SK\TradeModule\Model\TraderSent;
 use RS\Component\Core\Settings\SettingsInterface;
 
 /**
@@ -60,15 +62,10 @@ class OutController extends Controller
         }
 
         // дальше обрабатываем трейд.
-        if ($trader['forces_tally'] > 0) {
-            $this->decreaseTraderForcesTally($trader['trader_id']);
-        }
+        $trader->decreaseForcesTally();
+        $this->registerSending($trader, $request);
 
-        $this->sentTo($trader['trader_id']);
-
-        $this->redirect($trader['trader_url']);
-        
-        return $this->render('send');
+        return $this->redirect($trader->trader_url);
     }
 
     /**
@@ -95,4 +92,58 @@ class OutController extends Controller
 
         return false;
     }
+
+    /**
+     * Подбирает трейдера в таблице. Шлет только уникальные.
+     *
+     * @return array|null
+     */
+    private function getTrader()
+    {
+        $request = Yii::$container->get(Request::class);
+
+        $sendedSubQuery = TraderSent::find()
+            ->distinct('trader_id')
+            ->where(['ip_addr' => $request->getUserIp()])
+            ->andWhere(['>', 'created_at', new Expression('NOW() - INTERVAL 1 MINUTE')]);
+        
+        $traderQuery = Trader::find()
+            ->alias('t')
+            ->jeftJoin(['ts' => $sendedSubQuery], 't.trader_id = ts.trader_id')
+            ->where(['ts.trader_id' => null, 't.enabled' => 1])
+            ->orderBy(['t.forces_tally' => SORT_DESC, new Expression('RAND()')])
+            ->limit(1);
+
+        return $traderQuery->one();
+    }
+
+    public function registerSending($trader)
+    {
+        $request = Yii::$container->get(Request::class);
+
+        $traderSent = new TraderSent([
+            'trader_id' => $trader->getId(),
+            'ip_addr' => $request->getUserIp(),
+            'created_at' => \gmdate('Y-m-d H:i:s')
+        ]);
+
+        $traderSent->save();
+    }
+
+    /**
+     * Подзапрос из телеги
+     * 
+        SELECT `t`.`trader_id`, `t`.`trade_url`, `t`.`forces_tally` 
+        FROM `traders` AS `t`
+        WHERE `t`.`enabled` = 1
+        and not exists(
+            SELECT *
+            FROM `taders_sent` as `ts`
+            WHERE `ts`.`trader_id` = `t`.`trader_id`
+        and  `ts`.`ip_addr` = :ip_addr 
+        AND `ts`.`created_at` > (NOW() - INTERVAL 30 MINUTES)
+        )
+        ORDER BY `forces_tally` DESC
+        LIMIT 1
+     */
 }
