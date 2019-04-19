@@ -120,7 +120,7 @@ class Out
                 WHERE `ip_addr`=:ip_addr AND `created_at` > (NOW() - INTERVAL 1 MINUTE)
             ) AS `ts` ON (`t`.`trader_id` = `ts`.`trader_id`)
             WHERE `ts`.`trader_id` IS NULL AND `t`.`enabled` = 1
-            ORDER BY `forces_tally` DESC
+            ORDER BY `forces_tally` DESC, RAND()
             LIMIT 1
         ');
         $stmt->execute([':ip_addr' => $this->getUserIp()]);
