@@ -55,7 +55,7 @@ class OutController extends Controller
         
         if (empty($getVars['url']) && null === $trader) {
             // если оба пустые, отправляем на слив куда-то.
-            return $this->redirect($defaultUrl);
+            return $this->redirect($settings->get('default_out_url', '', 'trade'));
         } elseif (null === $trader) {
             // если нету трейда, отправляем на контент.
             return $this->redirect($getVars['url']);
