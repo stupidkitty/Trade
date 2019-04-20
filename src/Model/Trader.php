@@ -14,8 +14,10 @@ use yii\db\ActiveRecord;
  * @property string $updated_at
  * @property string $created_at
  */
-class Trader extends ActiveRecord
+class Trader extends ActiveRecord implements ToggleableInterface
 {
+    use ToggleableTrait;
+
     /**
      * @inheritdoc
      */
