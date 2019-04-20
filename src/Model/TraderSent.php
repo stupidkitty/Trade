@@ -38,9 +38,9 @@ class TraderSent extends ActiveRecord
      * @param string $ip
      * @return array
      */
-    public static function findByIp($ip)
+    public static function findByIp($ipAddr)
     {
-        $packedIp = inet_pton($ip);
+        $packedIp = \inet_pton($ipAddr);
 
         return static::find()
             ->where(['ip_addr' => $packedIp])
@@ -54,10 +54,10 @@ class TraderSent extends ActiveRecord
      */
     public function afterFind()
     {
-         $ip = @inet_ntop($this->ip);
+         $ipAddr = @\inet_ntop($this->ip_addr);
 
-         if (false !== $ip) {
-             $this->ip = $ip;
+         if (false !== $ipAddr) {
+             $this->ip_addr = $ipAddr;
          }
 
         parent::afterFind();
@@ -75,7 +75,7 @@ class TraderSent extends ActiveRecord
             return false;
         }
 
-        $this->ip = inet_pton($this->ip);
+        $this->ip_addr = \inet_pton($this->ip_addr);
 
         return true;
     }
