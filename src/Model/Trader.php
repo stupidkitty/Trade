@@ -58,9 +58,9 @@ class Trader extends ActiveRecord
         ";
 
         $command = static::getDb()->createCommand($sql);
-        $command->bindParam(':trader_id', $this->getId());
+        $command->bindValue(':trader_id', $this->getId());
 
-        if ($this->execute()) {
+        if ($command->execute()) {
             $this->forces_tally -= 1;
         }
     }
