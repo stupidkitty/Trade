@@ -6,7 +6,7 @@ $this->title = Yii::t('trade', 'trade');
 $this->params['subtitle'] = Yii::t('trade', 'new');
 
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('trade', 'trade'),
+    'label' => Yii::t('trade', 'traders'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = Yii::t('trade', 'new');
