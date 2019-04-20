@@ -55,17 +55,17 @@ class OutController extends Controller
         
         if (empty($getVars['url']) && null === $trader) {
             // если оба пустые, отправляем на слив куда-то.
-            $this->redirect($defaultUrl);
+            return $this->redirect($defaultUrl);
         } elseif (null === $trader) {
             // если нету трейда, отправляем на контент.
-            $this->redirect($getVars['url']);
+            return $this->redirect($getVars['url']);
         }
 
         // дальше обрабатываем трейд.
         $trader->decreaseForcesTally();
         $this->registerSending($trader, $request);
 
-        return $this->redirect($trader->trader_url);
+        return $this->redirect($trader->trade_url);
     }
 
     /**
@@ -104,12 +104,12 @@ class OutController extends Controller
 
         $sendedSubQuery = TraderSent::find()
             ->distinct('trader_id')
-            ->where(['ip_addr' => $request->getUserIp()])
+            ->where(['ip_addr' => inet_pton($request->getUserIp())])
             ->andWhere(['>', 'created_at', new Expression('NOW() - INTERVAL 1 MINUTE')]);
         
         $traderQuery = Trader::find()
             ->alias('t')
-            ->jeftJoin(['ts' => $sendedSubQuery], 't.trader_id = ts.trader_id')
+            ->leftJoin(['ts' => $sendedSubQuery], 't.trader_id = ts.trader_id')
             ->where(['ts.trader_id' => null, 't.enabled' => 1])
             ->orderBy(['t.forces_tally' => SORT_DESC, new Expression('RAND()')])
             ->limit(1);
