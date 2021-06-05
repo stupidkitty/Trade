@@ -1,6 +1,7 @@
 {
     "name": "stupidkitty/trade",
     "description": "Yii2 cj trade module",
+    "version": "3.0",
     "type": "yii2-extension",
     "keywords": ["yii2","cj trade"],
     "license": "MIT",
